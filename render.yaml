@@ -1,5 +1,28 @@
 services:
   - type: web
+    name: chat-backend
+    env: node
+    buildCommand: cd server && npm install && npm run build
+    startCommand: cd server && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+    healthCheckPath: /
+    autoDeploy: true
+    plan: free
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 1
+    scaling:
+      minInstances: 0
+      maxInstances: 1
+      targetMemoryPercent: 80
+      targetCPUPercent: 80
+
+  - type: web
     name: chat-frontend
     env: node
     buildCommand: npm install && npm run build
@@ -9,4 +32,10 @@ services:
         value: wss://chat-backend-j81w.onrender.com
     healthCheckPath: /
     autoDeploy: true
+    plan: free
+    scaling:
+      minInstances: 0
+      maxInstances: 1
+      targetMemoryPercent: 80
+      targetCPUPercent: 80
  
