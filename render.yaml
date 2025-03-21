@@ -1,12 +1,12 @@
 services:
   - type: web
-    name: chat-backend
+    name: chat-frontend
     env: node
-    buildCommand: cd server && npm install && npm run build
-    startCommand: cd server && npm start
+    buildCommand: npm install && npm run build
+    startCommand: npm run preview
     envVars:
-      - key: NODE_ENV
-        value: production
-      - key: PORT
-        value: 3001
+      - key: VITE_SOCKET_URL
+        value: wss://chat-backend-j81w.onrender.com
+    healthCheckPath: /
+    autoDeploy: true
  
