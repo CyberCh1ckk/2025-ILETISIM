@@ -28,9 +28,9 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [city, setCity] = useState('')
-  const [isRegistering, setIsRegistering] = useState(false)
-  const navigate = useNavigate()
+  const [error, setError] = useState('')
   const toast = useToast()
+  const navigate = useNavigate()
 
   const validatePassword = (pass: string) => {
     const hasUpperCase = /[A-Z]/.test(pass)
@@ -42,46 +42,25 @@ const Login: React.FC = () => {
     return hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChar && isLongEnough
   }
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!username.trim() || !city) {
+    setError('')
+
+    try {
+      // For demo purposes, accept any username/password
+      localStorage.setItem('currentUser', username.trim())
+      localStorage.setItem('userCity', city)
+      navigate('/chat')
+    } catch (err) {
+      setError('Giriş yapılamadı. Lütfen tekrar deneyin.')
       toast({
-        title: 'Error',
-        description: 'Please enter a username and select your city',
+        title: 'Hata',
+        description: 'Giriş yapılamadı. Lütfen tekrar deneyin.',
         status: 'error',
         duration: 3000,
         isClosable: true,
       })
-      return
     }
-
-    const storedUser = localStorage.getItem(username)
-    if (!storedUser) {
-      toast({
-        title: 'Kullanıcı bulunamadı',
-        description: 'Lütfen önce kayıt olun.',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      })
-      return
-    }
-
-    const userData = JSON.parse(storedUser)
-    if (userData.password !== password) {
-      toast({
-        title: 'Hatalı şifre',
-        description: 'Lütfen şifrenizi kontrol edin.',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      })
-      return
-    }
-
-    localStorage.setItem('currentUser', username.trim())
-    localStorage.setItem('userCity', city)
-    navigate('/chat')
   }
 
   const handleRegister = (e: React.FormEvent) => {
@@ -138,8 +117,6 @@ const Login: React.FC = () => {
       duration: 3000,
       isClosable: true,
     })
-    setIsRegistering(false)
-    setPassword('')
     setConfirmPassword('')
   }
 
@@ -160,7 +137,7 @@ const Login: React.FC = () => {
             </TabList>
             <TabPanels>
               <TabPanel>
-                <form onSubmit={handleLogin} style={{ width: '100%' }}>
+                <form onSubmit={handleSubmit} style={{ width: '100%' }}>
                   <VStack spacing={4}>
                     <FormControl isRequired>
                       <FormLabel>Kullanıcı adı:</FormLabel>

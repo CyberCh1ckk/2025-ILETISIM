@@ -13,7 +13,6 @@ import {
   HStack,
   IconButton,
   Flex,
-  Divider,
   Alert,
   AlertIcon,
   Image,
@@ -27,7 +26,7 @@ import {
   ModalFooter,
   useDisclosure,
 } from '@chakra-ui/react'
-import { SearchIcon, ArrowBackIcon, AttachmentIcon, ViewIcon, SunIcon, DeleteIcon, LinkIcon } from '@chakra-ui/icons'
+import { SearchIcon, ArrowBackIcon, AttachmentIcon, DeleteIcon, LinkIcon } from '@chakra-ui/icons'
 import { useNavigate } from 'react-router-dom'
 import { TURKISH_CITIES } from '../types'
 import { ChatRoom } from '../types'
