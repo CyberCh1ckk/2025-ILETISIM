@@ -6,7 +6,7 @@ export default defineConfig(({ mode }) => {
   
   return {
     plugins: [react()],
-    base: '/2025-ILETISIM/', // Updated to match your repository name
+    base: '/', // Changed to root for Render deployment
     server: {
       host: true,
       port: 5173,
