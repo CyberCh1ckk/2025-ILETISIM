@@ -6,7 +6,7 @@ export default defineConfig(({ mode }) => {
   
   return {
     plugins: [react()],
-    base: '/', // Changed to root for Render deployment
+    base: '/',
     server: {
       host: true,
       port: 5173,
@@ -16,6 +16,15 @@ export default defineConfig(({ mode }) => {
           ws: true
         }
       }
+    },
+    preview: {
+      host: true,
+      port: 10000,
+      strictPort: true,
+      allowedHosts: [
+        'chat-frontend-4niz.onrender.com',
+        '.onrender.com'
+      ]
     },
     build: {
       outDir: 'dist',
