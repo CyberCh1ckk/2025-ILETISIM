@@ -28,7 +28,6 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [city, setCity] = useState('')
-  const [error, setError] = useState('')
   const toast = useToast()
   const navigate = useNavigate()
 
@@ -44,7 +43,6 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError('')
 
     try {
       // For demo purposes, accept any username/password
@@ -52,7 +50,6 @@ const Login: React.FC = () => {
       localStorage.setItem('userCity', city)
       navigate('/chat')
     } catch (err) {
-      setError('Giriş yapılamadı. Lütfen tekrar deneyin.')
       toast({
         title: 'Hata',
         description: 'Giriş yapılamadı. Lütfen tekrar deneyin.',
